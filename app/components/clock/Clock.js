@@ -3,6 +3,7 @@ import classnames from 'classnames';
 import React from 'react';
 import PieChart from 'react-simple-pie-chart';
 import { calc } from '../../utils/Utils';
+import ToggleDisplay from 'react-toggle-display';
 
 export default class Clock extends React.Component {
   constructor(props) {
@@ -47,18 +48,23 @@ export default class Clock extends React.Component {
     ];
     return (
       <div className="container">
-        <h1 className={titleClass}>Time to WEEKEND!</h1>
-        <h4>{today.format('dddd, MMMM Do YYYY')}</h4>
-        <p className={timerClass}>{percentToWeekend}%</p>
-        <p> left for the weekend!</p>
-        <p className="days">
-          {daysToWeekend} Days, {hoursToWeekend} Hours
-        </p>
-        <div className="pie">
-          <PieChart
-            slices={pieSlices}
-          />
-        </div>
+        <ToggleDisplay if={percentToWeekend > 0}>
+          <h1 className={titleClass}>Time to WEEKEND!</h1>
+          <h4>{today.format('dddd, MMMM Do YYYY')}</h4>
+          <p className={timerClass}>{percentToWeekend}%</p>
+          <p> left for the weekend!</p>
+          <p className="days">
+            {daysToWeekend} Days, {hoursToWeekend} Hours
+          </p>
+          <div className="pie">
+            <PieChart
+              slices={pieSlices}
+            />
+          </div>
+        </ToggleDisplay>
+        <ToggleDisplay if={percentToWeekend <= 0}>
+          <h1>It's WEEKEND go home!</h1>
+        </ToggleDisplay>
       </div>
     );
   }

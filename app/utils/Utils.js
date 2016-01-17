@@ -4,7 +4,7 @@ export function calc() {
   let hoursInDay = 24;
   let hoursInWorkDay = 9;
   let daysInWeek = 5;
-  let today = moment('22/1/2016 01:00','DD/MM/YYYY hh:mm');
+  let today = moment();
   let totalHoursInWeek = hoursInWorkDay * daysInWeek;
   let countHoursToday = today.hour() - startTime;
   // check if we are not in the working hours
