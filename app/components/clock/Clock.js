@@ -21,7 +21,7 @@ export default class Clock extends React.Component {
   }
 
   render() {
-    let timerClass = classnames({
+    const timerClass = classnames({
       'timer': true,
       'animated': true,
       'hinge': this.state.isAnimated
@@ -30,12 +30,25 @@ export default class Clock extends React.Component {
       'animated': true,
       'bounce': this.state.isAnimated
     });
-    let percentToWeekend = Math.floor(100 - this.state.timeLeftToWeekend.percent);
-    let daysToWeekend = this.state.timeLeftToWeekend.days;
-    let hoursToWeekend = this.state.timeLeftToWeekend.hours;
+    const timeLeftToWeekend = this.state.timeLeftToWeekend;
+    const percentToWeekend = Math.floor(100 - timeLeftToWeekend.percent);
+    const daysToWeekend = timeLeftToWeekend.days;
+    const hoursToWeekend = timeLeftToWeekend.hours;
+    const today = timeLeftToWeekend.today;
+    const pieSlices = [
+      {
+        color: '#f00',
+        value: percentToWeekend
+      },
+      {
+        color: '#ffb7b3',
+        value: 100 - percentToWeekend
+      }
+    ];
     return (
       <div className="container">
         <h1 className={titleClass}>Time to WEEKEND!</h1>
+        <h4>{today.format('dddd, MMMM Do YYYY')}</h4>
         <p className={timerClass}>{percentToWeekend}%</p>
         <p> left for the weekend!</p>
         <p className="days">
@@ -43,16 +56,7 @@ export default class Clock extends React.Component {
         </p>
         <div className="pie">
           <PieChart
-            slices={[
-              {
-                color: '#f00',
-                value: percentToWeekend
-              },
-              {
-                color: '#ffb7b3',
-                value: 100 - percentToWeekend
-              }
-            ]}
+            slices={pieSlices}
           />
         </div>
       </div>
